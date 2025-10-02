@@ -1,0 +1,61 @@
+// Example program
+#include <iostream>
+#include <cmath>   // підключення бібліотеки математичних функцій
+using namespace std;
+
+int main() 
+{
+    // Integer31
+    // Дано будь-яке число. Вивести другу цифру справа (розряд десятків).
+    cout << "Завдання 1. Integer31\n";
+    long long n;
+    cout << "Введіть ціле число n = ";
+    cin >> n;
+
+    long long absn = llabs(n); 
+    int tens = (absn < 10) ? 0 : (absn / 10) % 10; 
+    cout << "Друга цифра справа (розряд десятків) = " << tens << endl;
+
+    // Boolean31
+    // Дано цілі числа a, b, c – сторони трикутника.
+    // Перевірити істинність висловлювання: «Трикутник є рівнобедрений».
+    cout << "\n Boolean31\n";
+    int a, b, c;
+    cout << "Введіть сторони трикутника a, b, c: ";
+    cin >> a >> b >> c;
+
+    bool triangle_exists = (a > 0 && b > 0 && c > 0) &&
+                           (a + b > c) && (a + c > b) && (b + c > a);
+    bool is_pos = triangle_exists && (a == b || a == c || b == c);
+
+    cout << "Трикутник існує: " << triangle_exists << endl;
+    cout << "Чи рівнобедрений: " << is_pos << endl;
+
+    //  Math.14.
+    // y = cbrt( (x^2/2 - sin^2(x^3)) * log_{2.5}(|x|) ) / (2^x * sqrt(x + 2.5*|tan x|))
+    cout << "\n Math.14.\n";
+    double x;
+    cout << "Введіть дійсне число x = ";
+    cin >> x;
+
+    if (x == 0.0) {
+        cout << "Помилка: log(|x|) не визначено при x=0\n";
+    } else if (fabs(cos(x)) < 1e-15) {
+        cout << "Помилка: cos(x)=0, tan(x) не визначено\n";
+    } else {
+        double under_sqrt = x + 2.5 * fabs(tan(x));
+        if (under_sqrt < 0) {
+            cout << "Помилка: вираз під коренем від’ємний\n";
+        } else {
+            double inner_num = (x * x) / 2.0 - pow(sin(x * x * x), 2);
+            double log_base = log(fabs(x)) / log(2.5);
+            double product = inner_num * log_base;
+            double cube_root = cbrt(product);
+            double denom = pow(2.0, x) * sqrt(under_sqrt);
+            double y = cube_root / denom;
+            cout << "y = " << y << endl;
+        }
+    }
+
+    return 0;
+}
